@@ -119,11 +119,21 @@ function TodoList() {
   );
 }
 
+function ProductItem({ product, onAdd }) {
+  return (
+    <div style={{ marginBottom: '10px' }}>
+      <strong>{product.name}</strong>
+      <p>Giá: {product.price}đ</p>
+      <button onClick={() => onAdd(product)}>Thêm vào giỏ</button>
+    </div>
+  );
+}
+
 function ShoppingCart() {
   const products = [
     { id: 1, name: 'Sản phẩm A', price: 100 },
     { id: 2, name: 'Sản phẩm B', price: 200 },
-    { id: 3, name: 'Sản phẩm C', price: 300 }
+    { id: 3, name: 'Sản phẩm C', price: 300 },
   ];
 
   const [cart, setCart] = useState([]);
@@ -142,16 +152,11 @@ function ShoppingCart() {
         Giỏ hàng: {totalItems} sản phẩm, tổng tiền: {totalPrice}đ
       </p>
       {products.map((product) => (
-        <div key={product.id} style={{ marginBottom: '10px' }}>
-          <strong>{product.name}</strong>
-          <p>Giá: {product.price}đ</p>
-          <button onClick={() => handleAdd(product)}>Thêm vào giỏ</button>
-        </div>
+        <ProductItem key={product.id} product={product} onAdd={handleAdd} />
       ))}
     </div>
   );
 }
-
 function RegistrationForm() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [submitted, setSubmitted] = useState(false);
